@@ -1,0 +1,47 @@
+version: "3.4"
+services:
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./schooly/web/media:/prod/schooly/media
+      - static-content-schooly:/prod/schooly/staticfiles
+      - ./fileshare:/fileshare
+    depends_on:
+      - schoolyweb
+  schooly_db:
+    image: postgres:10.4
+    container_name: schoolydb
+    environment:
+      POSTGRES_DB: $DB_NAME
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+  schoolyweb:
+    build:
+      context: schooly
+      dockerfile: docker/Dockerfile
+    container_name: schoolyweb
+    environment:
+      ENV: $ENV
+      HTTPS: $HTTPS
+      DJANGO_SECRET_KEY: $DJANGO_SECRET_KEY
+      DB_HOST: $DB_HOST
+      DB_USER: $DB_USER
+      DB_PORT: $DB_PORT
+      DB_NAME: $DB_NAME
+      DB_PASSWORD: $DB_PASSWORD
+      DB_BACKEND: $DB_BACKEND
+    volumes:
+      - ./fileshare:/fileshare
+      - static-content-schooly:/code/static
+      - ./schooly/web:/code
+    command: /gunicorn.sh
+    depends_on:
+      - schooly_db
+    ports:
+      - "8000:80"
+volumes:
+  static-content-schooly:
+    name: static-content-schooly
