@@ -1,0 +1,6 @@
+{% for not in notes %}
+    <p>{{not.notepad_title}}</p>
+    <p>{{not.notepad_published}}</p>
+    <p>{{not.notepad_content|safe}}</p>  <!-- used a safe flag so HTML is not displayed as plain text -->
+    <br><br>
+{% endfor %}
