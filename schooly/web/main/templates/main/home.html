@@ -1,37 +1,20 @@
-<!-- head tags -->
-
-<head>
-    {% load static %}
-    <!-- Prism CSS -->
-    <link href="{% static "tinymce/css/prism.css" %}" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript for Materialize CSS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-
+{% extends 'main/header.html' %}
 
 <!-- row tags -->
-<!-- 1 feature- note cards -->
+<!-- 1 feature- note cards (simple and hoverables) -->
 
-<div class="row">
-{% for not in notes %}
-
-    <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-        <div class="card-image waves-effect waves-block waves-light hoverable">
-          <img class="activator" src="images/schooly.png">
-        </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">{{not.notepad_title}}<i class="material-icons right">more_vert</i></span>
-          <p>{{not.notepad_published}}</p>
-          <p style="font-size:70%">Published {{not.notepad_published}}</p>
-        </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-          <p>{{not.notepad_content|safe}}</p>  <!-- used a safe flag so HTML is not displayed as plain text -->
+{% block content %}
+  {% load bleach_tags %}
+  <div class="row">
+    {% for note in notes %}
+      <div class="col s12 m6"></div>
+        <div class="note hoverable">
+          <div class="note-content">
+           <span class="card-title">{{note.notepad_title}}</span>
+           <p style="font-size:70%">Published {{note.notepad_published}}</p>
+           <p>{{note.notepad_content|bleach}}</p>  <!-- used a bleach filter so HTML is not displayed as plain text -->
+          </div>
         </div>
       </div>
-    </div>
-{% endfor %}
-</div>
+  {% endfor %}
+{% endblock %}
