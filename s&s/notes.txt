@@ -1,4 +1,4 @@
-This is just a sample line appended to create a big file..a dummy file
+This is just a sample line appended to create a big file..aka a dummy file- 1kB
 
 quote, be a boss, 2014
 homework, chemistry worksheet, 2015
