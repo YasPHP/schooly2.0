@@ -15,7 +15,7 @@ if [ $ENV == "DEV" ]; then
 else
     # We are in production mode
     # Start the server using gunicorn, b/c more robust for production
-    gunicorn iyna.wsgi:application -b :80 &
+    gunicorn schooly.wsgi:application -b :80 &
 fi
 
 # Make migrations and apply them to the database
