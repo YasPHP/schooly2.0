@@ -1,18 +1,15 @@
-def linear_search(arr, n, x):
-    for i in range (0,n):
-        if (arr[i]==x):
+def linear_search(day, n, x):
+    for i in range(0, n):
+        if day[i] == x:
             return i
         return -1
 
-    array = [5,9,12,3]
-    x=19
-    solution=linear_search(arr, 0, len(array)-1, 19)
+    day = [5, 9, 12, 3]
+    x = 3
+    day_finder = linear_search(day, 0, len(day)-1, x)
 
-    if (solution== -1):
-        print ("This value is in index", solution);
-        
+    if day_finder == -1:
+        print ("This value is in index", day_finder)
+
     else:
         print("This value is not in the array index")
-
-    return solution
-
