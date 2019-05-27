@@ -1,15 +1,21 @@
-def linear_search(day, n, x):
-    for i in range(0, n):
-        if day[i] == x:
+import time
+start = time.time()
+
+def linear_search(availableDays, date):
+    for i in range(len(availableDays)):
+        if availableDays[i] == date:
             return i
-        return -1
+    return None
 
-    day = [5, 9, 12, 3]
-    x = 3
-    day_finder = linear_search(day, 0, len(day)-1, x)
+availableDays = [1, 7, 6, 5, 8]
+print("Available June Dates:", availableDays)
+chosen = int(input("Which date in June would you like to search for? "))
 
-    if day_finder == -1:
-        print ("This value is in index", day_finder)
+result = linear_search(availableDays, chosen)
+if result== None:
+     print("Date is not found in the calendar list and is not available!")
+else:
+     print( "The date " + str(chosen) + " is found at the calendar position %d" %(result))
 
-    else:
-        print("This value is not in the array index")
+end = time.time()
+print("Code Execution Runtime:", end - start)

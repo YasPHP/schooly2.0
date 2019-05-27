@@ -1,20 +1,26 @@
-def binary_search (arr, l, r, x):
-    if r >= l:
-        mid = l + (r - l)/2
-        if arr[mid] == x:
+import time
+start = time.time()
+
+def binary_search(availableDays, left, right, date):
+    if right >= left:
+        mid = left + (right - left)//2
+        if availableDays[mid] == date:
             return mid
-        elif arr[mid] > x:
-            return binary_search(arr, l, mid-1, x)
+        elif availableDays[mid] > date:
+            return binary_search(availableDays, left, mid-1, date)
         else:
-            return binary_search(arr, mid+1, r, x)
+            return binary_search(availableDays, mid+1, right, date)
     else:
-        return -1
-    day = [5, 9, 12, 3]
-    x = 3
+        return None
+availableDays = [3, 5, 12, 20]
+print("Available June Dates:", availableDays)
+chosen = int(input("Which date in June would you like to search for? "))
 
-    day_finder = binary_search(day, 0, len(day)-1, x)
+result = binary_search(availableDays, 0, len(availableDays)-1, chosen)
+if result == None:
+    print("Date is not found in the calendar list and is not available!")
+else:
+    print("The date " + str(chosen) + " is found at the calendar position %d" %(result))
 
-    if day_finder != -1:
-        print("This value is at the array index % d" % day_finder)
-    else:
-        print("This value is not in the array index")
+end = time.time()
+print("Code Execution Runtime:", end - start)

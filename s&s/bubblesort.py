@@ -1,9 +1,22 @@
-# Bubble Sort works by repeatedly swapping the adjacent elements/values if they are in wrong order.
-def bubble_sort(notes):
-    n = len(notes)
-    for i in range (0, n-1):
-        for j in range(0, n -1 -i):
-            if notes[j] > notes[i+1]:
-                notes[j], notes[j+1] = notes[j+1], notes[j]
-    with open('notes.txt', 'r') as f:
-        notes = [line.strip() for line in f]
+import time
+start = time.time()
+
+def bubble_sort(dates):
+    valueExchanges = True
+    nextNum = len(dates)-1
+    while nextNum > 0 and valueExchanges:
+        valueExchanges = False
+        for i in range(nextNum):
+            if dates[i] > dates[i+1]:
+                valueExchanges = True
+                temporary = dates[i]
+                dates[i] = dates[i+1]
+                dates[i+1] = temporary
+        nextNum = nextNum-1
+
+dates = [53, 12, 1, 879, 34]
+bubble_sort(dates)
+print(dates)
+
+end = time.time()
+print("Code Execution Runtime:", end - start)
