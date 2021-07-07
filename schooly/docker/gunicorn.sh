@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Waits until Postgres DB is accessible (started in different container)
-while ! curl http://$DB_HOST:$DB_PORT/ 2>&1 | grep '52'
-    do
-        echo 'retry'
-        sleep 5
-    done
+#while ! curl http://$DB_HOST:$DB_PORT/ 2>&1 | grep '52'
+#    do
+#        echo 'retry'
+#        sleep 5
+#    done
+sleep 30
 
 if [ $ENV == "DEV" ]; then
     # We are in development mode
@@ -14,7 +15,7 @@ if [ $ENV == "DEV" ]; then
 else
     # We are in production mode
     # Start the server using gunicorn, b/c more robust for production
-    gunicorn iyna.wsgi:application -b :80 &
+    gunicorn schooly.wsgi:application -b :80 &
 fi
 
 # Make migrations and apply them to the database
